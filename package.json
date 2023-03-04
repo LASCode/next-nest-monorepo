@@ -3,18 +3,18 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lerna:start": "lerna run start:lerna:dev --stream",
-    "lerna:bootstrap": "lerna bootstrap",
-    "lerna:build": "lerna run build"
+    "lerna:start": "npx lerna run _lerna:start --stream",
+    "lerna:bootstrap": "npx lerna bootstrap",
+    "lerna:build": "npx lerna run build",
+    "postinstall": "npx lerna run _lerna:install --stream"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "lerna": "^6.5.1"
-  },
-  "workspaces": [
-    "packages/*"
-  ]
+  }
 }

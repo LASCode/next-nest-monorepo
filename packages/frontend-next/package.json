@@ -1,9 +1,9 @@
 {
-  "name": "frontend-next",
+  "name": "@test/frontend-next",
   "version": "0.1.0",
-  "private": true,
   "scripts": {
-    "start:lerna:dev": "next dev -p 3000",
+    "_lerna:start": "next dev -p 3000",
+    "_lerna:install": "npm install",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",

@@ -1,12 +1,12 @@
 {
-  "name": "backend-nest",
+  "name": "@test/backend-nest",
   "version": "0.0.1",
   "description": "",
   "author": "",
-  "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "start:lerna:dev": "nest start --watch",
+    "_lerna:start": "nest start --watch",
+    "_lerna:install": "npm install",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
