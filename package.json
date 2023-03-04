@@ -1,0 +1,20 @@
+{
+  "name": "task-next-nest",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lerna:start": "lerna run start:lerna:dev --stream",
+    "lerna:bootstrap": "lerna bootstrap",
+    "lerna:build": "lerna run build"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "lerna": "^6.5.1"
+  },
+  "workspaces": [
+    "packages/*"
+  ]
+}
