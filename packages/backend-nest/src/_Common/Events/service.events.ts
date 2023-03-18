@@ -1,0 +1,1 @@
+export const EVENT_SERVICE_COLLECTION_DROP = 'model.clean'

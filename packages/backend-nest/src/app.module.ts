@@ -1,10 +1,20 @@
+import { AppEnv } from 'constants/AppEnv';
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { ProjectModule } from './ProjectModule/project.module';
+import { MongooseModule } from '@nestjs/mongoose';
+import {WorkingPeriodModule} from "./WorkingPeriodModule/workingPeriod.module";
+import {EventEmitterModule} from "@nestjs/event-emitter";
+import {UserModule} from "./UserModule";
+import {TimeEntryModule} from "./TimeEntryModule/timeEntry.module";
 
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [
+      MongooseModule.forRoot(AppEnv.MONGODB_LINK),
+      EventEmitterModule.forRoot(),
+      WorkingPeriodModule,
+      ProjectModule,
+      UserModule,
+      TimeEntryModule
+  ],
 })
 export class AppModule {}
