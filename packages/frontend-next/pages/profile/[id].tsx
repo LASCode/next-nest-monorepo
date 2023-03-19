@@ -1,30 +1,26 @@
 import {useRouter} from "next/router";
 import Link from "next/link";
 import {GetServerSideProps, NextPageContext} from "next";
-import {getUsers} from "@/api";
+import {getUserById, getUsers} from "@/api";
 import {Header} from "@/components/Header/Header";
+import {PageLayout} from "@/layouts/PageLayout";
+import {ProfileCard} from "@/components/ProfileCard";
+import {User} from "@/types";
 
 
 interface ProfileAnyProps {
-    users: { name: string }[]
+    user: User
 }
-export default function ProfileAny({users}: ProfileAnyProps) {
-    const { query } = useRouter();
-
+export default function ProfileAny({user}: ProfileAnyProps) {
     return (
-        <>
-            <Header />
-            <div>Ого, енто же профиль {query.id}</div>
-            <div>{users.map((el) => <div key={el.name}><Link href={'/'}>{el.name}</Link></div>)}</div>
-        </>
+        <PageLayout title={`Профиль ${user.name}`}>
+            <ProfileCard userData={user} itsMe={false} />
+        </PageLayout>
     )
 };
 
 export const getServerSideProps: GetServerSideProps = async ({params}) => {
-    const users = await getUsers();
-    return ({
-        props: {
-            users
-        }
-    });
+    const id = params?.id as string;
+    const user = await getUserById(id);
+    return ({ props: { user } });
 }

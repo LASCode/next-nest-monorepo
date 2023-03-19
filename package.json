@@ -9,8 +9,7 @@
   "scripts": {
     "lerna:start": "npx lerna run _lerna:start --stream",
     "lerna:bootstrap": "npx lerna bootstrap",
-    "lerna:build": "npx lerna run build",
-    "postinstall": "npx lerna run _lerna:install --stream"
+    "lerna:build": "npx lerna run build"
   },
   "author": "",
   "license": "ISC",

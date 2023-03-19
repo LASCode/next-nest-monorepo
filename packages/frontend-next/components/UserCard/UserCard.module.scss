@@ -1,0 +1,25 @@
+.user-card {
+  padding: 15px;
+  border-radius: 18px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+  transition: all 1s;
+  background-color: whitesmoke;
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+.user-avatar {
+  height: 60px;
+  width: 60px;
+  border-radius: 10px;
+}
+.user-info {
+  display: flex;
+  flex-direction: column;
+}
+

@@ -4,6 +4,7 @@ import {INPUT_CreateWorkingPeriod} from "./inputs";
 import {AuthGuard} from "../_Common/Guards/auth.guard";
 import {D_User} from "../_Common/Decorators";
 import {User} from "../UserModule/user.types";
+import {getSlicedTimestamp} from "../_Common/Utils";
 
 @Controller('workingPeriod')
 export class WorkingPeriodController {
@@ -12,10 +13,12 @@ export class WorkingPeriodController {
     @UseGuards(AuthGuard)
     @Post('/')
     createWorkingPeriod(@Body() body: INPUT_CreateWorkingPeriod, @D_User() user: User) {
-        const [ day, month, year ] = body.assignedDay.split('/');
+        const { assignedDay } = body;
+
+        console.log(assignedDay)
         return this.workingPeriodService.createWorkingPeriod({
             user_id: user.id,
-            assignedDay: new Date(+year, +month, +day),
+            assignedDay: assignedDay,
         });
     }
 

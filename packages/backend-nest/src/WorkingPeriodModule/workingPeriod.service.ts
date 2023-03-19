@@ -51,7 +51,7 @@ export class WorkingPeriodService {
         return newWorkingPeriod.save();
     }
     async getWorkingPeriods(payload: DTO_GetWorkingPeriods) {
-        return this.workingPeriodModel.find({createdBy: payload.user_id});
+        return this.workingPeriodModel.find({createdBy: payload.user_id}).populate(['assignedProjects', 'assignedTimeEntries']);
     }
 
     private async create(payload: WorkingPeriod) {

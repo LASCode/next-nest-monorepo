@@ -1,0 +1,18 @@
+.profile {
+  padding: 10px;
+  background-color: whitesmoke;
+  border-radius: 20px;
+  border: 1px solid gray;
+  display: flex;
+  gap: 20px;
+}
+
+.profile-image {
+  border-radius: 20px;
+}
+.profile-info {
+  flex: 1;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
