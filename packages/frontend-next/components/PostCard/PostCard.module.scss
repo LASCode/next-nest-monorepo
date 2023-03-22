@@ -1,0 +1,20 @@
+.post-card {
+  background-color: #7b52ad;
+  border-radius: 20px;
+  padding: 20px;
+  color: white;
+
+
+  &:not(:first-child) {
+    margin-top: 20px;
+  }
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.body {
+  margin-top: 10px;
+}

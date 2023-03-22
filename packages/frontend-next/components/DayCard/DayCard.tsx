@@ -1,10 +1,11 @@
 import {WorkingPeriod} from "@/types";
-import {format, formatDuration, intervalToDuration} from 'date-fns'
+import {format} from 'date-fns'
 import cnBind from 'classnames/bind';
 import styles from './DayCard.module.scss';
 import {ItemProject} from "@/components/DayCard/ItemProject/ItemProject";
 import {useCallback} from "react";
 import {useTimer} from "@/hooks/useTimer";
+import {formatDuration} from "@/utils";
 const cx = cnBind.bind(styles);
 
 interface DayCardProps {
@@ -25,11 +26,9 @@ export const DayCard = ({ workingPeriodData, onProjectCreate, onStartTimer, onSt
         const title = await prompt('Введите название проекта') || 'unset';
         onProjectCreate({id: workingPeriodData._id, title: title})
     }, [onProjectCreate, workingPeriodData._id])
-
     const handleStartTimer = useCallback(async (project_id: string) => {
         onStartTimer(project_id)
     }, [onStartTimer])
-    
     const handleStopTimer = useCallback(async (project_id: string) => {
         onStopTimer(project_id)
     }, [onStopTimer])
@@ -39,11 +38,7 @@ export const DayCard = ({ workingPeriodData, onProjectCreate, onStartTimer, onSt
             <div className={cx('header')}>
                 <span>{totalTimeDate}</span>
                 <button onClick={handleProjectCreate}>CreateProject</button>
-                <span>Total time: {formatDuration(intervalToDuration({start: 0, end: totalTime}), {
-                    format: ["hours", "minutes", "seconds"],
-                    zero: true,
-                    delimiter: ":",
-                })}</span>
+                <span>Total time: {formatDuration(totalTime)}</span>
             </div>
             <div>
                 {assignedProjects.map((el) =>

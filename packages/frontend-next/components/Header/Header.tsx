@@ -7,7 +7,7 @@ export const Header = () => {
     const routes = [
         {title: "Трекер", href: "/tracker"},
         {title: "Коллеги", href: "/users"},
-        {title: "ЧтоТоЕще", href: "/Anything"}
+        {title: "Посты", href: "/posts"}
     ];
 
     return (

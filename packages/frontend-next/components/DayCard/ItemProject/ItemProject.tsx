@@ -4,7 +4,8 @@ import {useCallback, useEffect, useState} from "react";
 import styles from './ItemProject.module.scss';
 import cnBind from 'classnames/bind';
 import {useTimer} from "@/hooks/useTimer";
-import {format, formatDuration, intervalToDuration} from "date-fns";
+import {format} from "date-fns";
+import {formatDuration} from "@/utils";
 const cx = cnBind.bind(styles);
 
 interface ItemProjectProps {
@@ -17,7 +18,7 @@ export const ItemProject = ({ projectData, onStart, onStop }: ItemProjectProps) 
     const isRunning = projectData.assignedTimeEntries.some((el) => el.end === null);
     const timerCallback = useCallback((prev: number) => prev === 0 ? Date.now() : prev + 1000, []);
     const currentTime = useTimer({callback: timerCallback, interval: 1000}, isRunning);
-    const totalTime = projectData.assignedTimeEntries.reduce<number>((acc: number, curr) => acc += (curr.end || (currentTime - curr.start)), 0);
+    const totalTime = projectData.assignedTimeEntries.reduce<number>((acc: number, curr) => acc += ((curr.end || currentTime) - curr.start), 0);
 
     return (
         <div className={cx('item-project')}>
@@ -34,13 +35,7 @@ export const ItemProject = ({ projectData, onStart, onStop }: ItemProjectProps) 
                     <button onClick={() => onStart(projectData._id)}>Start</button>
                 )}
 
-                <div>
-                    {formatDuration(intervalToDuration({start: 0, end: totalTime}), {
-                        format: ["hours", "minutes", "seconds"],
-                        zero: true,
-                        delimiter: ":",
-                    })}
-                </div>
+                <div>{formatDuration(totalTime)}</div>
             </div>
             {isOpen && (
                 <div className={cx('time-entries-list')}>

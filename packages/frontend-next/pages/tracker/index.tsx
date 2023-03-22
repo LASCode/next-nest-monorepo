@@ -16,10 +16,7 @@ interface TrackerPageProps {
     workingPeriods: WorkingPeriod[],
 }
 export default function TrackerPage({workingPeriods}: TrackerPageProps) {
-    console.log(workingPeriods)
     const [ periods, setPeriods ] = useState(workingPeriods);
-    // const { defaultTimestamp, slicedTimestamp } = useMemo(() => getCurrentDayTimestamp(), []);
-    // const currentDayAlreadyAssigned = periods.some((el) => el.assignedDay === slicedTimestamp);
 
     const createWPToday = () => {
         (async () => {
@@ -31,16 +28,39 @@ export default function TrackerPage({workingPeriods}: TrackerPageProps) {
         const request = await apiCreateProject({title, working_period_id: id});
         setPeriods((prev) =>
             prev.map((el) =>
-                el._id === id ? {...el, assignedProjects: [request, ...el.assignedProjects]} : el
+                el._id === id ? {...el, assignedProjects: [...el.assignedProjects, request]} : el
             )
         )
     }, []);
     const startTimer = useCallback(async (project_id: string) => {
         const request = await apiStartTimer({project_id: project_id});
-        console.log(request);
+        setPeriods((prev) => {
+            return prev.map((period) => {
+                const isCurrentPeriod = period._id === request.assignedWorkingPeriod;
+                if (!isCurrentPeriod) { return period; }
+
+                return ({
+                    ...period,
+                    assignedProjects: period.assignedProjects.map((project) =>
+                        project._id === request._id ? request : project)
+                })
+            });
+        })
     }, [])
     const stopTimer = useCallback(async (project_id: string) => {
         const request = await apiStopTimer({project_id: project_id});
+        setPeriods((prev) => {
+            return prev.map((period) => {
+                const isCurrentPeriod = period._id === request.assignedWorkingPeriod;
+                if (!isCurrentPeriod) { return period; }
+
+                return ({
+                    ...period,
+                    assignedProjects: period.assignedProjects.map((project) =>
+                        project._id === request._id ? request : project)
+                })
+            });
+        })
         console.log(request);
     }, [])
 
