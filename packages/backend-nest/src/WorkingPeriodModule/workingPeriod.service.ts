@@ -8,6 +8,7 @@ import {getSlicedTimestamp} from "_Common/Utils";
 import {OnEvent} from "@nestjs/event-emitter";
 import {EVENT_PROJECT_CREATED, ProjectCreatedEvent, ProjectCreatedEventPayload} from "../_Common/Events";
 import {EVENT_TIME_ENTRY_CREATED, TimeEntryCreatedEvent} from "../_Common/Events/timeEntry.events";
+import {Project} from "../ProjectModule/project.schema";
 
 @Injectable()
 export class WorkingPeriodService {
@@ -51,7 +52,14 @@ export class WorkingPeriodService {
         return newWorkingPeriod.save();
     }
     async getWorkingPeriods(payload: DTO_GetWorkingPeriods) {
-        return this.workingPeriodModel.find({createdBy: payload.user_id}).populate(['assignedProjects', 'assignedTimeEntries']);
+        return this.workingPeriodModel.find({createdBy: payload.user_id}).populate([
+            {
+                path: 'assignedProjects',
+                model: Project.name,
+                populate: 'assignedTimeEntries'
+            },
+            'assignedTimeEntries'
+        ]);
     }
 
     private async create(payload: WorkingPeriod) {

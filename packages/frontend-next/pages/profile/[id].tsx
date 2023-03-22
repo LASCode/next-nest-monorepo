@@ -1,11 +1,8 @@
-import {useRouter} from "next/router";
-import Link from "next/link";
-import {GetServerSideProps, NextPageContext} from "next";
-import {getUserById, getUsers} from "@/api";
-import {Header} from "@/components/Header/Header";
-import {PageLayout} from "@/layouts/PageLayout";
-import {ProfileCard} from "@/components/ProfileCard";
-import {User} from "@/types";
+import { GetServerSideProps, GetStaticPaths } from "next";
+import { apiGetUserById, apiGetUsers } from "@/api";
+import { PageLayout } from "@/layouts/PageLayout";
+import { ProfileCard } from "@/components/ProfileCard";
+import { User } from "@/types";
 
 
 interface ProfileAnyProps {
@@ -19,8 +16,16 @@ export default function ProfileAny({user}: ProfileAnyProps) {
     )
 };
 
-export const getServerSideProps: GetServerSideProps = async ({params}) => {
+export const getStaticPaths: GetStaticPaths = async () => {
+    const users = await apiGetUsers();
+
+    return ({
+        paths: users.map((el) => ({params: {id: el.id}})),
+        fallback: false,
+    })
+};
+export const getStaticProps: GetServerSideProps = async ({params}) => {
     const id = params?.id as string;
-    const user = await getUserById(id);
+    const user = await apiGetUserById(id);
     return ({ props: { user } });
 }

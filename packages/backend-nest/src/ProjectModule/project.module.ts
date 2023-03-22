@@ -6,6 +6,7 @@ import {Project, ProjectSchema} from "./project.schema";
 import {EventEmitterModule} from "@nestjs/event-emitter";
 import {UserModule} from "../UserModule";
 import {WorkingPeriodModule} from "../WorkingPeriodModule/workingPeriod.module";
+import {TimeEntryModule} from "../TimeEntryModule/timeEntry.module";
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import {WorkingPeriodModule} from "../WorkingPeriodModule/workingPeriod.module";
       EventEmitterModule.forRoot(),
       UserModule,
       WorkingPeriodModule,
+      TimeEntryModule,
   ],
   controllers: [ProjectController],
   providers: [ProjectService],

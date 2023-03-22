@@ -1,0 +1,29 @@
+.item-project {opacity: 1}
+.item-project-content {
+  display: grid;
+  align-items: center;
+  grid-template-columns: 30px 1fr 1fr 50px 100px;
+  grid-column-gap: 20px;
+  padding: 10px;
+  border-bottom: 1px solid dimgrey;
+}
+.time-entries-list {opacity: 1}
+
+.item-count {
+  height: 30px;
+  width: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: whitesmoke;
+  cursor: pointer;
+  user-select: none;
+  border: 15px solid #797979;
+  background-color: #62c500;
+  transition: all .2s;
+
+  &:hover {
+    color: white;
+    border: 0 solid #62c500;
+  }
+}

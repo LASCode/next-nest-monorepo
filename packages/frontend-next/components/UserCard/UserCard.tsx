@@ -3,7 +3,7 @@ import {User} from "@/types";
 import styles from './UserCard.module.scss';
 import cnBind from 'classnames/bind';
 import {GetServerSideProps} from "next";
-import {getUsers} from "@/api";
+import {apiGetUsers} from "@/api";
 import Image from "next/image";
 import {useRouter} from "next/router";
 import {useCallback} from "react";
@@ -32,6 +32,6 @@ export const UserCard = ({userData}: UserCardProps) => {
 }
 
 export const getServerSideProps: GetServerSideProps = async ({params}) => {
-    const users = await getUsers();
+    const users = await apiGetUsers();
     return ({ props: { users } });
 }

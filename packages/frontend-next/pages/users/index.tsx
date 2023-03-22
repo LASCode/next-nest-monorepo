@@ -1,5 +1,5 @@
 import {GetServerSideProps} from "next";
-import {getUsers} from "@/api";
+import {apiGetUsers} from "@/api";
 import {User} from "@/types";
 import {PageLayout} from "@/layouts/PageLayout";
 import {UserCard} from "@/components/UserCard";
@@ -25,6 +25,6 @@ export default function UsersPage({users}: UsersPageProps) {
 };
 
 export const getServerSideProps: GetServerSideProps = async () => {
-    const users = await getUsers();
+    const users = await apiGetUsers();
     return ({ props: { users } });
 }

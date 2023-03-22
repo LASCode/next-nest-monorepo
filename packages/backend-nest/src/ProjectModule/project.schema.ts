@@ -9,6 +9,12 @@ export class Project {
   title: string;
   @Prop({ required: true })
   createdTime: number;
+  @Prop({ required: true })
+  isRunning: boolean;
+  @Prop({type: Types.ObjectId, ref: TimeEntry.name})
+  currentEntry: Types.ObjectId | null;
+  @Prop({ required: true })
+  totalTime: number;
   @Prop({ required: true, type: [{type: Types.ObjectId, ref: TimeEntry.name}]})
   assignedTimeEntries: Types.ObjectId[];
   @Prop({ required: true, type: Types.ObjectId, ref: WorkingPeriod.name})
